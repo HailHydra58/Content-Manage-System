@@ -1,4 +1,5 @@
 <template>
+	<TopNav />
   <el-row>
     <!-- 左侧nav -->
     <el-col :span="4">
@@ -6,7 +7,7 @@
     </el-col>
     <!-- 右侧总内容 -->
     <el-col :span="20">
-      <TopNav />
+      
     </el-col>
   </el-row>
 </template>

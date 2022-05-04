@@ -1,7 +1,8 @@
 <template>
   <div class="top1">
     <div style="flex: 1">
-      <img src="@/assets/单列列表.png" />
+      <i class="iconfont icon-liebiao list_icon"></i>
+			<span class="title">宿舍管理系统</span>
     </div>
     <div class="qiandao">
       <el-button class="qiandaos" type="warning" plain @click="isQianDao">
@@ -70,6 +71,7 @@ export default {
   width: 100%;
   height: 60px;
   border-bottom: 1px solid #e3e3e3;
+	background-color: var(--el-color-primary);
 }
 
 .top1 img {
@@ -87,5 +89,23 @@ export default {
   height: 40px;
   margin: 0 auto;
   margin-top: 10px;
+}
+
+.title {
+	color: aliceblue;
+	text-align: center;
+	font-size: 23px;
+	font-weight: 350;
+	position: relative;
+	top: 14px;
+	left: 45px;
+}
+
+.list_icon {
+	position: relative;
+	top: 12px;
+	left: 20px;
+	font-size: 19px;
+	color: aliceblue;
 }
 </style>
