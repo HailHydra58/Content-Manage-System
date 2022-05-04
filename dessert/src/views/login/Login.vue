@@ -1,10 +1,25 @@
 <template>
+	<!-- 背景图 -->
+	<img id="backgroundPicture" src="../../assets/login-bg.jpg">
+
 	<div id="loginBox">
-		<img src="@/assets/logo.png" alt="" srcset="" />
-		<h1>甜品管理系统</h1>
-		<input v-model="id" type="text" />
-		<input v-model="pwd" type="password" @keyup.enter="signIn" />
-		<el-button id="signIn" type="primary" round @click="signIn">登录</el-button>
+		<h1>宿舍管理系统</h1>
+		<!-- 账户密码输入框 -->
+		<div style="display: flex;">
+			<i class="iconfont icon-yonghu"></i>
+			<el-input class="inp1" v-model="id" placeholder="username"></el-input>
+		</div>
+		<div style="display: flex;">
+			<i class="iconfont icon-mima"></i>
+			<el-input class="inp2" v-model="pwd" show-password placeholder="password" @keyup.enter="signIn"></el-input>
+		</div>
+		<!-- 单选框 -->
+		<div class="radioButton">
+			<el-radio v-model="radio" label="1">学生</el-radio>
+			<el-radio v-model="radio" label="2">管理员</el-radio>
+		</div>
+		<!-- 登录按钮 -->
+		<el-button id="signIn" type="primary" @click="signIn">登录</el-button>
 	</div>
 </template>
 
@@ -17,7 +32,8 @@
 		data() {
 			return {
 				id: "",
-				pwd: ""
+				pwd: "",
+				radio: ""
 			};
 		},
 		methods: {
@@ -25,50 +41,72 @@
 				getLogin(this.id, this.pwd).then((res) => {
 					console.log(res)
 					if (res.data.code == 200) {
+						//将登录状态设置为true并跳转
+						this.$store.state.isLogin = true
 						this.$router.push("/shopowner");
 						console.log("登陆成功", `权利为${res.data.data[0].root}`)
+					} else if (res.data.code == 201) {
+						console.log("登录失败，账号密码错误");
+					} else {
+						console.log("服务器繁忙，请稍后重试");
 					}
 				})
-
-				// for (let i = 0; i < this.staff.length; i++) {
-				//   const item = this.staff[i];
-				//   if (this.tel == item.tel && this.pwd == item.pwd) {
-				//     this.$store.state.isLogin = true;
-				//     switch (item.root) {
-				//       case 1:
-				//         this.$router.push("/shopowner");
-				//         break;
-				//       case 2:
-				//         this.$router.push("/purchase");
-				//         break;
-				//       case 3:
-				//         this.$router.push("/sale");
-				//         break;
-				//     }
-				//   }
-				// }
 			},
 		}
 	};
 </script>
 
 <style scoped>
+	i {
+		font-size: 18px;
+		margin-top: 7px;
+		margin-right: 20px;
+	}
+	
+	.radioButton {
+		display: flex;
+		justify-content: center;
+	}
+
+	/* 深度选择器>>>选择到组件的class名 */
+	.inp1>>>.el-input__inner,
+	.inp2>>>.el-input__inner {
+		border-radius: 6px;
+		height: 40px;
+	}
+
+	.inp1,
+	.inp2 {
+		margin-bottom: 20px;
+	}
+
+	#backgroundPicture {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: -1;
+	}
+
 	#signIn {
-		width: 300px;
-		height: 60px;
-		font-size: 25px;
-		position: relative;
-		top: 40px;
-		left: 100px;
+		width: 100%;
+		height: 45px;
+		font-size: 15px;
+		margin-top: 15px;
 	}
 
 	#loginBox {
-		width: 500px;
-		height: 400px;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 400px;
+		height: auto;
 		display: flex;
 		flex-direction: column;
-		margin: 0 auto;
-		margin-top: 90px;
+		padding: 20px 40px;
+		background-color: rgb(255, 255, 255, 0.5)
 	}
 
 	input {
@@ -79,13 +117,13 @@
 		padding: 0 20px;
 	}
 
-	img {
-		width: 150px;
-		height: 150px;
-		margin: 0 auto;
-	}
-
 	h1 {
+		font-size: 25px;
+		font-weight: 400;
+		color: var(--el-color-primary);
 		text-align: center;
+		padding-bottom: 15px;
+		margin-bottom: 40px;
+		border-bottom: #f4f4f4 solid 1px;
 	}
 </style>

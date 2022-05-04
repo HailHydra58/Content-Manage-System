@@ -28,7 +28,7 @@ app.all("*",(req,res,next) => {
 	//判断是否登录接口
 	let urladdress = req.url.split("?")[0]
 	if (urladdress == "/login") {
-		console.log("放行");
+		console.log("登录请求 放行");
 		next()
 	} else{
 		//其他接口就都需要判断有没有登陆者信息

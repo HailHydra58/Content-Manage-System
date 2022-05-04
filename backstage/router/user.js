@@ -14,12 +14,12 @@ router.get("/login", (req, res) => {
 			console.log("sql报错了");
 			res.json({
 				code:500,
-				msg:"服务区繁忙，请稍重试"
+				msg:"服务区繁忙，请稍后重试"
 			})
 		} else{
 			if (data.length == 0) {
 				res.json({
-					code:200,
+					code:201,
 					msg:"查无此人",
 					data
 				})
