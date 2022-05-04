@@ -33,22 +33,27 @@
 			return {
 				id: "",
 				pwd: "",
-				radio: ""
+				radio: "2"
 			};
 		},
 		methods: {
 			signIn() {
 				getLogin(this.id, this.pwd).then((res) => {
+					let msg = res.data.msg
 					console.log(res)
 					if (res.data.code == 200) {
+						//弹出成功
+						ElMessage.success(msg)
 						//将登录状态设置为true并跳转
 						this.$store.state.isLogin = true
 						this.$router.push("/shopowner");
-						console.log("登陆成功", `权利为${res.data.data[0].root}`)
+						console.log(msg, `权利为${res.data.data[0].root}`)
 					} else if (res.data.code == 201) {
-						console.log("登录失败，账号密码错误");
+						//弹出密码错误
+						ElMessage.error(msg)
 					} else {
-						console.log("服务器繁忙，请稍后重试");
+						//弹出服务器繁忙
+						ElMessage.warning(msg)
 					}
 				})
 			},
@@ -62,15 +67,15 @@
 		margin-top: 7px;
 		margin-right: 20px;
 	}
-	
+
 	.radioButton {
 		display: flex;
 		justify-content: center;
 	}
 
 	/* 深度选择器>>>选择到组件的class名 */
-	.inp1>>>.el-input__inner,
-	.inp2>>>.el-input__inner {
+	.inp1:deep(.el-input__inner),
+	.inp2:deep(.el-input__inner) {
 		border-radius: 6px;
 		height: 40px;
 	}

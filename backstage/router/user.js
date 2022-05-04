@@ -20,7 +20,7 @@ router.get("/login", (req, res) => {
 			if (data.length == 0) {
 				res.json({
 					code:201,
-					msg:"查无此人",
+					msg:"登录失败，账号密码错误",
 					data
 				})
 			} else{
