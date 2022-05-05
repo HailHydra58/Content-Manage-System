@@ -1,8 +1,8 @@
-import axios from 'axios'
+import axios from "axios";
 
-const baseUrl = 'http://localhost:3000'
+const baseUrl = "http://localhost:3000";
 
 //调用此接口 , 判断登录账号密码
-export function getLogin(id,pwd) {
-  return axios.get(`${baseUrl}/login?id=${Number(id)}&pwd=${pwd}`)
+export function getLogin(id, pwd, radio) {
+  return axios.get(`${baseUrl}/login?id=${id}&pwd=${pwd}&radio=${radio}`);
 }
