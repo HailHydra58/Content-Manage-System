@@ -30,8 +30,6 @@
 </template>
 
 <script>
-import { getLogin } from "@/network/request.js";
-
 export default {
   data() {
     return {
@@ -44,9 +42,16 @@ export default {
     signIn() {
       // 判断是否选择了单选框
       if (this.radio) {
-        getLogin(this.id, this.pwd, this.radio).then((res) => {
+        this.$axios({
+          url: "/login",
+          method: "get",
+          params: {
+            id: this.id,
+            pwd: this.pwd,
+            radio: this.radio,
+          },
+        }).then((res) => {
           let msg = res.data.msg;
-          console.log(res);
           if (res.data.code == 200) {
             //弹出成功
             ElMessage.success(msg);
@@ -54,7 +59,7 @@ export default {
             this.$store.state.isLogin = true;
             this.$router.push("/shopowner");
             console.log(msg, `权利为${res.data.data[0].admin_root}`);
-          } else if (res.data.code == 201) {
+          } else if (res.data.code == 205) {
             //弹出密码错误
             ElMessage.error(msg);
           } else {
