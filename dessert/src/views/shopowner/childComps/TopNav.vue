@@ -6,12 +6,14 @@
     </div>
 
     <div id="userBox">
+      <i class="iconfont icon-weizhiyidong user_icon"></i>
       <el-avatar
         style="margin-top: 4px"
         :size="45"
-        src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
+        src="src/assets/user.png"
       ></el-avatar>
-      <span>{{ $store.state.loginUser }}</span>
+      <span class="userName">{{ $store.state.loginUser }}</span>
+      <i class="iconfont icon-xiala user_icon2"></i>
     </div>
   </div>
 </template>
@@ -41,6 +43,7 @@ export default {
   padding: 10px 0 7px 0;
   border-bottom: 1px solid #e3e3e3;
   background-color: var(--el-color-primary);
+  color: aliceblue;
 }
 
 .top1 img {
@@ -50,7 +53,6 @@ export default {
 }
 
 .title {
-  color: aliceblue;
   text-align: center;
   font-size: 23px;
   font-weight: 350;
@@ -63,12 +65,33 @@ export default {
   top: 12px;
   left: 20px;
   font-size: 19px;
-  color: aliceblue;
 }
 
 #userBox {
   width: 200px;
   margin-top: 3px;
   display: flex;
+}
+
+.iconfont:hover {
+  cursor: pointer;
+}
+
+.user_icon {
+  margin-top: 14px;
+  margin-right: 30px;
+  font-size: 25px;
+}
+
+.user_icon2 {
+  margin-top: 12px;
+  margin-left: 2px;
+  font-size: 25px;
+}
+
+.userName {
+  margin-left: 10px;
+  margin-top: 12px;
+  font-size: 18px;
 }
 </style>

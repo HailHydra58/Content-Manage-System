@@ -55,6 +55,8 @@ export default {
           if (res.data.code == 200) {
             //弹出成功
             ElMessage.success(msg);
+            //传登录用户到vuex
+            this.$store.state.loginUser = this.id;
             //将登录状态设置为true并跳转
             this.$store.state.isLogin = true;
             this.$router.push("/shopowner");
