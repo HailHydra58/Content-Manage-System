@@ -1,16 +1,35 @@
 <template>
   <div class="topBox">
     <div class="top"></div>
-    <el-input v-model="input" placeholder="请输入宿舍号" />
-    <el-button type="primary">搜索</el-button>
-    <el-button type="primary">重置</el-button>
-    <el-button type="success" plain @click="ShowAdd = true">添加宿舍</el-button>
+    <el-input v-model="input" placeholder="请输入" @keydown.enter="search" />
+    <el-button type="primary" @click="search">搜索</el-button>
+    <el-button type="primary" @click="reset">重置</el-button>
+    <el-button type="success" plain @click="add"> 添加{{ addName }} </el-button>
     <div style="height: 50px"></div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["addName"],
+  data() {
+    return {
+      input: "",
+    };
+  },
+  methods: {
+    search() {
+      this.$emit("search", this.input);
+    },
+    reset() {
+      this.$emit("reset");
+      this.input = "";
+    },
+    add() {
+      this.$emit("showAdd");
+    },
+  },
+};
 </script>
 
 <style scoped>

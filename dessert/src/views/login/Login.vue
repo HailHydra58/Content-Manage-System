@@ -56,7 +56,8 @@ export default {
             //弹出成功
             ElMessage.success(msg);
             //传登录用户到vuex
-            this.$store.state.loginUser = this.id;
+            this.$store.state.loginUser = res.data.data[0].admin_name;
+            this.$store.state.loginRoot = res.data.data[0].admin_root;
             //将登录状态设置为true并跳转
             this.$store.state.isLogin = true;
             this.$router.push("/shopowner");

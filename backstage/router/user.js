@@ -134,7 +134,7 @@ router.post("/deleteTheDormitory", (req, res) => {
       } else {
         res.json({
           code: 200,
-          msg: "删除宿舍请求成功",
+          msg: "删除宿舍成功",
           data,
         });
       }
@@ -148,7 +148,7 @@ router.post("/modifyTheDormitory", (req, res) => {
   let dormitory_name = req.body.dormitory_name;
   let dormitory_balance = req.body.dormitory_balance;
 
-  let sql = `UPDATA dormitory SET dormitory_name=?,dormitory_balance=? WHERE dormitory_id=?`;
+  let sql = `UPDATE dormitory SET dormitory_name=?,dormitory_balance=? WHERE dormitory_id=?`;
   db.query(
     sql,
     [dormitory_name, dormitory_balance, dormitory_id],
@@ -179,14 +179,14 @@ router.post("/modifyTheDormitory", (req, res) => {
 
 //查询宿舍
 router.get("/queryTheDormitory", (req, res) => {
-  let dormitory_id = req.query.dormitory_id;
-  let dormitory_name = req.query.dormitory_name;
+  let value1 = Number(req.query.value);
+  let value2 = req.query.value;
 
   //通过模糊查询编号或者名字
   let sql = `SELECT dormitory_id,dormitory_name,
   (SELECT COUNT(*) 'count' FROM student WHERE student.stu_dorm_id = dormitory.dormitory_id) AS num,
-  dormitory_balance,balance_state FROM dormitory WHERE dormitory_id LIKE "%?%" OR dormitory_name LIKE "%?%" `;
-  db.query(sql, [dormitory_id, dormitory_name], (err, data) => {
+  dormitory_balance,balance_state FROM dormitory WHERE dormitory_id LIKE "%${value1}%" OR dormitory_name LIKE "%${value2}%" `;
+  db.query(sql, (err, data) => {
     if (err) {
       console.log("sql报错了");
       res.json({
@@ -211,13 +211,13 @@ router.get("/queryTheDormitory", (req, res) => {
 });
 
 //添加宿舍
-router.get("/addTheDormitory", (req, res) => {
-  let dormitory_name = req.query.dormitory_name;
-  let dormitory_balance = req.query.dormitory_balance;
+router.post("/addTheDormitory", (req, res) => {
+  let dormitory_name = req.body.dormitory_name;
+  let dormitory_balance = req.body.dormitory_balance;
   let balance_state = null;
   dormitory_balance <= 0 ? (balance_state = 0) : (balance_state = 1);
 
-  let sql = `INSERT INTO dormitory VALUES(NULL,"?",?,?)`;
+  let sql = `INSERT INTO dormitory VALUES(NULL,?,?,?)`;
   db.query(
     sql,
     [dormitory_name, dormitory_balance, balance_state],
@@ -237,7 +237,7 @@ router.get("/addTheDormitory", (req, res) => {
         } else {
           res.json({
             code: 200,
-            msg: "添加宿舍请求成功",
+            msg: "添加宿舍成功",
             data,
           });
         }

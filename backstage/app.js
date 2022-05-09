@@ -7,6 +7,10 @@ const cors = require("cors");
 const session = require("express-session");
 //引入模块
 const user = require("./router/user.js");
+const notice = require("./router/notice.js");
+const student = require("./router/student.js");
+const noticeAdminister = require("./router/noticeAdminister.js");
+const adminAdminister = require("./router/adminAdminister.js");
 
 //解析post数据  不用记
 app.use(express.urlencoded({ extended: false }));
@@ -49,6 +53,10 @@ app.all("*", (req, res, next) => {
 
 //将路由挂载到服务上
 app.use(user);
+app.use(notice);
+app.use(student);
+app.use(noticeAdminister);
+app.use(adminAdminister);
 
 app.listen(3000, () => {
   console.log("服务已开启，端口号3000");

@@ -20,7 +20,6 @@ export default {
   methods: {
     clickItem(index) {
       this.$store.state.showLeftNum = index;
-      console.log(this.$store.state.showLeftNum);
     },
   },
 };
