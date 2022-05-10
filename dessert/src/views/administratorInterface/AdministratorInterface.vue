@@ -15,9 +15,9 @@
 </template>
 
 <script>
-import Left from "./childComps/Left.vue";
-import Right from "./childComps/Right.vue";
-import TopNav from "./childComps/TopNav.vue";
+import Left from "@/views/administratorInterface/childComps/Left.vue";
+import Right from "@/views/administratorInterface/childComps/Right.vue";
+import TopNav from "@/views/administratorInterface/childComps/TopNav.vue";
 
 export default {
   data() {

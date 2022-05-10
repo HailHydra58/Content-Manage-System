@@ -13,8 +13,13 @@
         src="src/assets/user.png"
       ></el-avatar>
       <span class="userName">{{ $store.state.loginUser }}</span>
-      <i class="iconfont icon-xiala user_icon2"></i>
+      <i class="iconfont icon-xiala user_icon2" @click="isShow = !isShow"></i>
     </div>
+  </div>
+
+  <!-- 登出框 -->
+  <div class="logOut" v-show="isShow" @click="logOut">
+    <span>登出</span>
   </div>
 </template>
 
@@ -24,12 +29,17 @@ export default {
     return {
       activeIndex: "1",
       activeIndex2: "1",
+      isShow: false,
     };
   },
   methods: {
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
       this.isShow = key;
+    },
+    logOut() {
+      //点击强制刷新页面
+      location.reload([true]);
     },
   },
 };
@@ -93,5 +103,24 @@ export default {
   margin-left: 10px;
   margin-top: 12px;
   font-size: 18px;
+}
+
+.logOut {
+  position: absolute;
+  top: 77px;
+  right: 10px;
+  width: 150px;
+  height: 50px;
+  color: #5b97ff;
+  border-radius: 0 0 10px 10px;
+  background-color: var(--el-color-primary-light-5);
+  z-index: 99;
+  display: flex;
+  justify-content: center;
+  line-height: 50px;
+}
+
+.logOut > span:hover {
+  cursor: pointer;
 }
 </style>

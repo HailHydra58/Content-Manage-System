@@ -227,7 +227,7 @@ export default {
     },
     //删除触发
     fnDelete(data) {
-      ElMessageBox.confirm("确定要删除此学生吗?", "警告", {
+      ElMessageBox.confirm("确定要删除此公告吗?", "警告", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",

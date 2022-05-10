@@ -60,7 +60,7 @@ export default {
             this.$store.state.loginRoot = res.data.data[0].admin_root;
             //将登录状态设置为true并跳转
             this.$store.state.isLogin = true;
-            this.$router.push("/shopowner");
+            this.$router.push("/administratorInterface");
             console.log(msg, `权利为${res.data.data[0].admin_root}`);
           } else if (res.data.code == 205) {
             //弹出密码错误
