@@ -12,11 +12,7 @@
 
 <script>
 export default {
-  data() {
-    return {
-      list: ["公告主页", "宿舍管理", "学生管理", "公告管理", "管理员管理"],
-    };
-  },
+  props: ["list"],
   methods: {
     clickItem(index) {
       this.$store.state.showLeftNum = index;
@@ -31,13 +27,14 @@ export default {
   list-style: none;
   flex-direction: column; /* 向下排列 */
   width: auto;
-  height: 40%;
+  height: calc(100vh - 78px);
   font-size: 16px;
   font-weight: 400;
   margin-right: 30px;
 }
 .ul > li {
-  flex: 1;
+  /* flex: 1; */
+  height: 50px;
   display: flex;
   flex-direction: column; /* 项目从上到下垂直显示 */
   justify-content: center; /* 垂直居中 */

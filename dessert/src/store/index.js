@@ -5,6 +5,7 @@ export default createStore({
     isLogin: false,
     loginUser: "user",
     loginRoot: null,
+    loginStuId: null,
     showLeftNum: 1,
   },
   mutations: {},

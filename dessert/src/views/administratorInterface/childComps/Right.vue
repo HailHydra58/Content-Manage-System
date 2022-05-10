@@ -14,7 +14,7 @@
 <script>
 import Paging from "@/components/common/paging/Paging.vue";
 
-import TheAnnouncementPage from "./TheAnnouncementPage.vue";
+import TheAnnouncementPage from "@/components/content/theAnnouncementPage/TheAnnouncementPage.vue";
 import DormitoryManagement from "./DormitoryManagement.vue";
 import StudentManagement from "./StudentManagement.vue";
 import AnnouncementOfTheManagement from "./AnnouncementOfTheManagement.vue";

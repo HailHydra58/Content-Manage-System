@@ -41,7 +41,14 @@ router.get("/login", (req, res) => {
         });
       } else {
         //在确定有这个人，应该将登陆者信息存在session里面去
-        req.session.username = data[0].admin_name;
+        switch (Number(req.query.radio)) {
+          case 1:
+            req.session.username = data[0].stu_name;
+            break;
+          case 2:
+            req.session.username = data[0].admin_name;
+            break;
+        }
 
         res.json({
           code: 200,

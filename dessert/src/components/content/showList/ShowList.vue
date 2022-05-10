@@ -11,10 +11,18 @@
 
       <el-table-column prop="zip" label="操作" width="300">
         <template #default="scope">
-          <el-button type="danger" @click="deleteTheDormitory(scope.row)">
+          <el-button
+            v-show="isShowAdd"
+            type="danger"
+            @click="deleteTheDormitory(scope.row)"
+          >
             删除
           </el-button>
-          <el-button type="warning" @click="modifyTheDormitory(scope.row)">
+          <el-button
+            v-show="isShowUpdate"
+            type="warning"
+            @click="modifyTheDormitory(scope.row)"
+          >
             修改
           </el-button>
           <slot name="operationRight" :value="scope.row"></slot>
@@ -26,7 +34,40 @@
 
 <script>
 export default {
-  props: ["tableDatas", "arr_Prop", "arr_label", "arr_width"],
+  props: {
+    tableDatas: {
+      type: Array,
+      default: function () {
+        return [];
+      },
+    },
+    arr_Prop: {
+      type: Array,
+      default: function () {
+        return [];
+      },
+    },
+    arr_label: {
+      type: Array,
+      default: function () {
+        return [];
+      },
+    },
+    arr_width: {
+      type: Array,
+      default: function () {
+        return [];
+      },
+    },
+    isShowAdd: {
+      type: Boolean,
+      default: true,
+    },
+    isShowUpdate: {
+      type: Boolean,
+      default: true,
+    },
+  },
   methods: {
     deleteTheDormitory(data) {
       this.$emit("delete", data);

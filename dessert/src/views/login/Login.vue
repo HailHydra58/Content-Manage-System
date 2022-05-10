@@ -55,13 +55,23 @@ export default {
           if (res.data.code == 200) {
             //弹出成功
             ElMessage.success(msg);
-            //传登录用户到vuex
-            this.$store.state.loginUser = res.data.data[0].admin_name;
-            this.$store.state.loginRoot = res.data.data[0].admin_root;
+            switch (Number(this.radio)) {
+              case 1:
+                //传登录用户到vuex
+                this.$store.state.loginUser = res.data.data[0].stu_name;
+                this.$store.state.loginStuId = res.data.data[0].stu_id;
+                this.$router.push("/studentManagement");
+                break;
+              case 2:
+                //传登录用户到vuex
+                this.$store.state.loginUser = res.data.data[0].admin_name;
+                this.$store.state.loginRoot = res.data.data[0].admin_root;
+                this.$router.push("/administratorInterface");
+                console.log(msg, `权利为${res.data.data[0].admin_root}`);
+                break;
+            }
             //将登录状态设置为true并跳转
             this.$store.state.isLogin = true;
-            this.$router.push("/administratorInterface");
-            console.log(msg, `权利为${res.data.data[0].admin_root}`);
           } else if (res.data.code == 205) {
             //弹出密码错误
             ElMessage.error(msg);

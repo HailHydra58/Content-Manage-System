@@ -2,16 +2,31 @@
   <div class="topBox">
     <div class="top"></div>
     <el-input v-model="input" placeholder="请输入" @keydown.enter="search" />
-    <el-button type="primary" @click="search">搜索</el-button>
-    <el-button type="primary" @click="reset">重置</el-button>
-    <el-button type="success" plain @click="add"> 添加{{ addName }} </el-button>
+    <el-button type="primary" @click="search" :disabled="isDisabled"
+      >搜索</el-button
+    >
+    <el-button type="primary" @click="reset" :disabled="isDisabled"
+      >重置</el-button
+    >
+    <el-button type="success" plain @click="add" :disabled="isDisabled">
+      添加{{ addName }}
+    </el-button>
     <div style="height: 50px"></div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["addName"],
+  props: {
+    addName: {
+      type: String,
+      default: "",
+    },
+    isDisabled: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
       input: "",

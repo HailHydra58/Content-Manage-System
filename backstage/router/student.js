@@ -6,10 +6,19 @@ let db = require("../utils/user.js");
 
 //学生管理数据
 router.get("/stuData", (req, res) => {
-  let sql = `SELECT stu_num,stu_name,stu_dorm_id,
-  (SELECT dormitory_balance FROM dormitory WHERE dormitory.dormitory_id = student.stu_dorm_id) dormitory_balance,
-  (SELECT balance_state FROM dormitory WHERE dormitory.dormitory_id = student.stu_dorm_id) balance_state 
-  FROM student`;
+  let sql;
+  if (req.query.stu_id) {
+    sql = `SELECT stu_num,stu_name,stu_dorm_id,
+    (SELECT dormitory_balance FROM dormitory WHERE dormitory.dormitory_id = student.stu_dorm_id) dormitory_balance,
+    (SELECT balance_state FROM dormitory WHERE dormitory.dormitory_id = student.stu_dorm_id) balance_state 
+    FROM student WHERE stu_id=${req.query.stu_id}`;
+  } else {
+    sql = `SELECT stu_num,stu_name,stu_dorm_id,
+    (SELECT dormitory_balance FROM dormitory WHERE dormitory.dormitory_id = student.stu_dorm_id) dormitory_balance,
+    (SELECT balance_state FROM dormitory WHERE dormitory.dormitory_id = student.stu_dorm_id) balance_state 
+    FROM student`;
+  }
+
   db.query(sql, (err, data) => {
     if (err) {
       console.log("sql报错了");
@@ -237,6 +246,38 @@ router.get("/payTheFees", (req, res) => {
           }
         }
       });
+    }
+  });
+});
+
+//学生充值
+router.post("/topUp", (req, res) => {
+  let oldMoney = parseFloat(req.body.oldMoney);
+  let newMoney = parseFloat(req.body.topUp);
+  let dormitory_balance = oldMoney + newMoney;
+  let dromitory_id = Number(req.body.stu_dorm_id);
+
+  let sql = `UPDATE dormitory SET dormitory_balance=? WHERE dormitory_id=?`;
+  db.query(sql, [dormitory_balance, dromitory_id], (err, data) => {
+    if (err) {
+      console.log("sql报错了");
+      res.json({
+        code: 500,
+        msg: "服务器繁忙，请稍后重试",
+      });
+    } else {
+      if (data.length == 0) {
+        res.json({
+          code: 404,
+          msg: "找不到数据",
+        });
+      } else {
+        res.json({
+          code: 200,
+          msg: "充值成功",
+          data,
+        });
+      }
     }
   });
 });
